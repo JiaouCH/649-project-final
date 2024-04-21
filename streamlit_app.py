@@ -40,7 +40,7 @@ country_codes = pd.read_csv(
 
 # Define a function to create and return a plot
 
-def create_plot(subgroup):
+def geo_plot(subgroup):
     # Apply any required transformations to the data in pandas
     background = alt.Chart(countries).mark_geoshape(fill="lightgray")
 
@@ -145,7 +145,6 @@ def create_plot(subgroup):
     )
 
     final_visualization = chart | (pop_bar_chart & line_plot)
-    final_visualization
     return final_visualization
     
 
@@ -153,4 +152,4 @@ st.title('Disease Explorer')
 subgroup_choice = st.selectbox("Select the disease you would like to explore:", ['Depressive', 'Schizophrenia', 'Bipolar_Disorder', 'Eating_Disorders', 'Anxiety_Disorders'])
 
 # Whenever the selection changes, this will re-run and update the plot.
-st.altair_chart(create_plot(subgroup_choice), use_container_width=True)
+st.altair_chart(geo_plot(subgroup_choice), use_container_width=True)
