@@ -99,7 +99,7 @@ def create_plot(values, subgroup, year=2019):
             values_tmp.nlargest(10, subgroup)
         ).mark_bar().encode(
             x=alt.X(f"{subgroup}:Q", title=f'{subgroup} per 100,000 people'),
-            y=alt.Y("name:N", sort='-x', title='Name'),
+            y=alt.Y("name:N", sort='-x'),
             color=alt.Color(f"{subgroup}:Q",scale=alt.Scale(scheme="reds"),legend=None),
             opacity=opacity_condition,
             tooltip=["name:N", f"{subgroup}:Q"],
@@ -151,7 +151,7 @@ def create_plot(values, subgroup, year=2019):
     )
 
     final_visualization = chart | (pop_bar_chart & line_plot)
-    final_visualization = final_visualization.configure_title(fontSize=16).configure_legend(titleFontSize=11, labelFontSize=11)
+    final_visualization = final_visualization.configure_title(fontSize=16).configure_legend(offset=0,padding=0,titleFontSize=11, labelFontSize=11)
     return final_visualization
     
 if __name__ == '__main__':
@@ -205,7 +205,13 @@ if __name__ == '__main__':
     country_codes = pd.read_csv(
         "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"
     )
-    st.title('Disease Explorer')
+    st.title('Mental Health Disorders')
+    st.header('What is Mental Health Disorders?')
+    st.write("Mental health problems, also known as mental health disorders or mental illnesses, encompass a wide range of conditions that affect a person's mood, thinking, behavior, and overall psychological well-being, Mental health problems are classified into several categories according to recognized systems such as the Diagnostic and Statistical Manual of Mental Disorders (DSM) and the International Classification of Diseases (ICD). Some common categories include: Anxiety Disorders, Eating Disorders, Trauma and Stressor-Related Disorders: and Mood Disorders: These include conditions like depression and bipolar disorder, characterized by significant disturbances in a person's mood and emotional state.")
+    st.header('How Close Are We to Confronting Mental Health Disorders?')
+    st.write("You might think that mental health disorders are not as common as other health problems, but they are actually quite prevalent. According to the World Health Organization (WHO), mental health disorders are the leading cause of disability worldwide. In fact, it is estimated that one in four people will experience a mental health disorder at some point in their lives. ")
+    st.write("")
+    st.write("Mental health problems are significantly related to a country's development and the quality of life. Looking at the figure below, you can see the burden of mental health disorders in different countries around the world. The darker the shade of red, the higher the burden of mental health disorders in that country. In fact, 9 out of the 10 countries listed with the highest rates of depression are developing countries or regions. However, if you think citizens of developed countries are less likely to experience mental disorders, you are completely mistaken. Even a developed country like the United States has a high burden of depression and schizophrenia. Other developed countries such as Australia and the United Kingdom also have a high burden of mental health disorders. In 2019, Australia had the highest burden of eating disorders. The eating-disorder burden in Australia was 3 times higher than the global average and was continuously increasing since 1990.")
     subgroup_choice = st.sidebar.selectbox("Select the disease you would like to explore:", ['Depressive', 'Schizophrenia', 'Bipolar_Disorder', 'Eating_Disorders', 'Anxiety_Disorders'])
     year_choice = st.sidebar.selectbox("Select the year you would like to explore:", [2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990])
     # Whenever the selection changes, this will re-run and update the plot.
